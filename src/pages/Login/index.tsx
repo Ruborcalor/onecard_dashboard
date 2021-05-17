@@ -18,6 +18,8 @@ import Particles from 'react-particles-js'
 import { SettingsInputAntennaTwoTone } from '@material-ui/icons'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import GitHubIcon from '@material-ui/icons/GitHub'
+import { Snackbar } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 
 function Copyright() {
   return (
@@ -77,6 +79,7 @@ export default function SignInSide(props) {
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false)
   const { user, setUser } = props
 
   const handleSubmit = async event => {
@@ -94,12 +97,41 @@ export default function SignInSide(props) {
       })
       .catch(e => {
         console.log('Error')
+        setLoading(false)
+        setOpen(true)
       })
+  }
+
+  const handleClick = () => {
+    setOpen(true)
+  }
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
   }
 
   return (
     <>
       <Particles height="100vh" width="100vw" className={classes.particles} />
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      >
+        <Alert
+          onClose={handleClose}
+          elevation={6}
+          variant="filled"
+          severity="error"
+        >
+          Invalid username or password. Please try again
+        </Alert>
+      </Snackbar>
       {loading && (
         <div
           style={{
