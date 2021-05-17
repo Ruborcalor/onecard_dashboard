@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles()
   const preventDefault = event => event.preventDefault()
-  const [user, setUser] = useState(fakedata)
+  const [user, setUser] = useState(null)
 
   // const getData = async () => {
   //   const { data } = await axios.get('/me')
@@ -77,18 +77,14 @@ function App() {
         <UserContext.Provider value={{ user, setUser }}>
           <VerticalNav>
             <Switch>
+              <Route exact path="/" component={Dashboard} />
               <Route exact path="/transactions" component={Transactions} />
               <Route
                 exact
                 path="/spending_summary"
                 component={SpendingSummary}
               />
-              <Route exact path="/dashboard" component={Dashboard} />
-              {/* <Route path="/users" component={UserPage} /> */}
               <Route path="/logout" component={Logout} />
-              {/* <Route path="/userstats" component={YourUserStats} /> */}
-              {/* <Route path="/leaderboard" component={Leaderboard} /> */}
-              {/* <Route path="/profile" component={Profile} /> */}
             </Switch>
           </VerticalNav>
         </UserContext.Provider>

@@ -17,16 +17,18 @@ import { makeStyles } from '@material-ui/core/styles'
 import Particles from 'react-particles-js'
 import { SettingsInputAntennaTwoTone } from '@material-ui/icons'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import GitHubIcon from '@material-ui/icons/GitHub'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link
+        color="inherit"
+        href="https://github.com/Ruborcalor/onecard_dashboard"
+      >
+        <GitHubIcon />
+        Github Repository
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
     </Typography>
   )
 }
@@ -141,7 +143,10 @@ export default function SignInSide(props) {
                   <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                  Sign in to Onecard Dashboard
+                  Onecard Dashboard Login
+                </Typography>
+                <Typography component="h3" variant="caption">
+                  Enter McGill email credentials to login
                 </Typography>
                 <form
                   className={classes.form}
@@ -174,7 +179,7 @@ export default function SignInSide(props) {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                   />
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     control={
                       <Checkbox
                         value="remember"
@@ -184,7 +189,7 @@ export default function SignInSide(props) {
                       />
                     }
                     label="Remember me"
-                  />
+                  /> */}
                   <Button
                     type="submit"
                     fullWidth
@@ -196,7 +201,10 @@ export default function SignInSide(props) {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link href="#" variant="body2">
+                      <Link
+                        href="https://www.mcgill.ca/it/stay-safe-online/pw-reset"
+                        variant="body2"
+                      >
                         Forgot password?
                       </Link>
                     </Grid>
@@ -204,11 +212,15 @@ export default function SignInSide(props) {
                       <Link href="#" variant="body2">
                         {"Don't have an account? Sign Up"}
                       </Link>
+
                     </Grid> */}
+                    <Grid item>
+                      <Link href="https://github.com/Ruborcalor/onecard_dashboard">
+                        <GitHubIcon style={{ fontSize: '12px' }} />
+                        {` Github Repository`}
+                      </Link>{' '}
+                    </Grid>
                   </Grid>
-                  {/* <Box mt={5}>
-                    <Copyright />
-                  </Box> */}
                 </form>
               </div>
             </Grid>

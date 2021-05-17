@@ -97,7 +97,7 @@ export default function ClippedDrawer({ children }) {
   }
 
   const generalNav: [string, string, any][] = [
-    ['Dashboard', '/dashboard', <TableChartIcon />],
+    ['Dashboard', '/', <TableChartIcon />],
     ['Your Transactions', '/transactions', <AccountBalanceIcon />],
     ['Spending Summary', '/spending_summary', <AccountBalanceWalletIcon />],
     // ['Your Study Stats', '/userstats', <EqualizerIcon />],
