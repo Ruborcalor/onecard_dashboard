@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography'
 import axios from 'services/api'
 import { makeStyles } from '@material-ui/core/styles'
 import Particles from 'react-particles-js'
+import { SettingsInputAntennaTwoTone } from '@material-ui/icons'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 function Copyright() {
   return (
@@ -72,18 +74,21 @@ export default function SignInSide(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+  const [loading, setLoading] = useState(false)
   const { user, setUser } = props
 
   const handleSubmit = async event => {
     event.preventDefault()
+    setLoading(true)
+    console.log('Loading set to true')
     axios
-      .post('/get_user_transactions', {
+      .post('/get_user_data', {
         email: email,
         password: password,
       })
       .then(data => {
         setUser(data.data)
-        console.log(data.data)
+        setLoading(false)
       })
       .catch(e => {
         console.log('Error')
@@ -93,6 +98,20 @@ export default function SignInSide(props) {
   return (
     <>
       <Particles height="100vh" width="100vw" className={classes.particles} />
+      {loading && (
+        <div
+          style={{
+            display: 'flex',
+            position: 'absolute',
+            height: '100vh',
+            width: '100vw',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress color="secondary" style={{ zIndex: 20 }} />
+        </div>
+      )}
       <div
         style={{
           display: 'flex',
