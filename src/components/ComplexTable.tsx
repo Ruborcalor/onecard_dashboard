@@ -20,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
+import GetAppIcon from '@material-ui/icons/GetApp'
 
 interface ComplextTableProps {
   /**
@@ -190,7 +191,7 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles()
-  const { numSelected, tableName } = props
+  const { numSelected, tableName, rows } = props
 
   return (
     <Toolbar
@@ -225,9 +226,24 @@ const EnhancedTableToolbar = props => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
+        <Tooltip title="Export">
+          <IconButton
+            aria-label="export"
+            onClick={() => {
+              const csvContent =
+                'data:text/csv;charset=utf-8,' +
+                rows.map(e => Object.values(e).join(',')).join('\n')
+
+              const encodedUri = encodeURI(csvContent)
+              const link = document.createElement('a')
+              link.setAttribute('href', encodedUri)
+              link.setAttribute('download', 'onecard_transactions.csv')
+              document.body.appendChild(link) // Required for FF
+
+              link.click() // This will download the data file named "my_data.csv".
+            }}
+          >
+            <GetAppIcon />
           </IconButton>
         </Tooltip>
       )}
@@ -238,6 +254,7 @@ const EnhancedTableToolbar = props => {
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   tableName: PropTypes.string.isRequired,
+  rows: PropTypes.any,
 }
 
 const useStyles = makeStyles(theme => ({
@@ -333,6 +350,7 @@ export default function EnhancedTable(props) {
         <EnhancedTableToolbar
           numSelected={selected.length}
           tableName={tableName}
+          rows={rows}
         />
         <TableContainer>
           <Table

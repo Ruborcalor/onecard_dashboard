@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles()
   const preventDefault = event => event.preventDefault()
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(fakedata)
 
   // const getData = async () => {
   //   const { data } = await axios.get('/me')
