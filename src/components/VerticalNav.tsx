@@ -115,7 +115,7 @@ export default function ClippedDrawer({ children }) {
 
   const infoNav: [string, string, any][] = [
     // ['FAQ', '/faq', <LiveHelpIcon />],
-    ['Feedback Form', 'https://forms.gle/6AKTsMDz2DmJVAvy5', <FeedbackIcon />],
+    ['Feedback Form', 'https://forms.gle/6qfjMbqry8uVGDTW6', <FeedbackIcon />],
   ]
 
   const navSections: [string, [string, string, any][]][] = [
