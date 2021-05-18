@@ -16,15 +16,8 @@ function Logout() {
   const { user, setUser } = useContext(UserContext)
 
   useEffect(() => {
-    axios
-      .get('/logout')
-      .then(res => {
-        setUser(null)
-        history.push('/')
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    setUser(null)
+    history.push('/')
   })
 
   return <p>Logging out</p>

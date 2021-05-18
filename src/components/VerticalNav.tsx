@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles, useTheme, Theme } from '@material-ui/core/styles'
 import { createStyles } from '@material-ui/core/styles'
 import { useLocation, Link } from 'react-router-dom'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
@@ -108,7 +109,8 @@ export default function ClippedDrawer({ children }) {
   ]
 
   const settingsNav: [string, string, any][] = [
-    ['Profile', '/profile', <PersonIcon />],
+    // ['Profile', '/profile', <PersonIcon />],
+    ['Logout', '/logout', <ExitToAppIcon />],
   ]
 
   const infoNav: [string, string, any][] = [
@@ -119,7 +121,7 @@ export default function ClippedDrawer({ children }) {
   const navSections: [string, [string, string, any][]][] = [
     ['General', generalNav],
     // ['Apps', appNav],
-    // ['Settings', settingsNav],
+    ['Settings', settingsNav],
     ['Info', infoNav],
   ]
 
