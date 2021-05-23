@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { useHistory } from 'react-router'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
@@ -28,7 +28,7 @@ import {
   PieChart,
   Pie,
 } from 'recharts'
-import { Card, CardContent, CardHeader } from '@material-ui/core'
+import { Card, CardContent, CardHeader, FormControl } from '@material-ui/core'
 import { keys } from '@material-ui/core/styles/createBreakpoints'
 
 interface ParamTypes {
@@ -149,6 +149,46 @@ function Dashboard({ userId }) {
   //       </Container>
   //     )
 
+  const ControlledOpenSelect = ({ onChange, tableName, tableNames }) => {
+    const [open, setOpen] = React.useState(false)
+
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+      onChange(event.target.value as string)
+    }
+
+    const handleClose = () => {
+      setOpen(false)
+    }
+
+    const handleOpen = () => {
+      setOpen(true)
+    }
+
+    return (
+      <div style={{ marginLeft: '5px' }}>
+        <FormControl>
+          {/* <InputLabel id="demo-controlled-open-select-label">
+            Time Frame
+            </InputLabel> */}
+          <Select
+            labelId="demo-controlled-open-select-label"
+            id="demo-controlled-open-select"
+            open={open}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            value={tableName}
+            onChange={handleChange}
+            className={classes.select}
+          >
+            {tableNames.map(entry => (
+              <MenuItem value={entry}>{entry}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+    )
+  }
+
   const formatTime = s => {
     const dtFormat = new Intl.DateTimeFormat('en-GB', {
       timeZone: 'UTC',
@@ -169,7 +209,9 @@ function Dashboard({ userId }) {
     '#AA4499',
   ]
 
-  const currentPieKey = 'Mandatory Meal Plan Regular (FY19_20)'
+  const [currentPieKey, setCurrentPieKey] = useState(
+    Object.keys(user_transactions_summary)[0]
+  )
 
   return (
     <Grid container spacing={3}>
@@ -246,7 +288,7 @@ function Dashboard({ userId }) {
               Spending Location Breakdown
             </Typography>
 
-            <div style={{ height: '400px', paddingRight: '20px' }}>
+            <div style={{ height: '380px', paddingRight: '20px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart width={400} height={400}>
                   <Pie
@@ -273,6 +315,11 @@ function Dashboard({ userId }) {
                 </PieChart>
               </ResponsiveContainer>
             </div>
+            <ControlledOpenSelect
+              onChange={setCurrentPieKey}
+              tableName={currentPieKey}
+              tableNames={Object.keys(user_transactions_summary)}
+            />
           </CardContent>
         </Card>
       </Grid>
